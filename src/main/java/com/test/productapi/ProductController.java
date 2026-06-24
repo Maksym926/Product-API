@@ -5,6 +5,7 @@ import com.test.productapi.model.Product;
 import com.test.productapi.model.dto.PageResponse;
 import com.test.productapi.model.dto.ProductRequest;
 import com.test.productapi.model.dto.ProductResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,17 +33,17 @@ public class ProductController {
         return ResponseEntity.ok(productService.getProductById(productId));
     }
     @PostMapping("/product")
-    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody ProductRequest productRequest) {
         ProductResponse productResponse = productService.createProduct(productRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(productResponse);
     }
     @PatchMapping("/product/{productId}")
-    public ResponseEntity<ProductResponse> updateProduct(@PathVariable String productId, @RequestBody ProductRequest updates) {
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable String productId, @Valid @RequestBody ProductRequest updates) {
         ProductResponse response = productService.updateProductPartially(productId, updates);
         return ResponseEntity.ok(response);
     }
     @PutMapping("/product/{productId}")
-    public ResponseEntity<ProductResponse> replaceProduct(@PathVariable String productId, @RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductResponse> replaceProduct(@PathVariable String productId, @Valid @RequestBody ProductRequest productRequest) {
         ProductResponse response = productService.updateProductEntirely(productId, productRequest);
         return ResponseEntity.ok(response);
     }

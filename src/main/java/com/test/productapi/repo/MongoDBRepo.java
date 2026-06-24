@@ -37,6 +37,12 @@ public class MongoDBRepo implements ProductRepo{
     }
 
     @Override
+    public boolean findProductByProductName(String name) {
+        Query query = new Query(Criteria.where("name").is(name));
+        return mongo.exists(query, Product.class);
+    }
+
+    @Override
     public void createProduct(Product product) {
         mongo.insert(product);
     }

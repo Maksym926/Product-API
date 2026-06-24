@@ -1,5 +1,5 @@
 app:
-  database: ${APP_DATABASE:mongodb}
+  database: ${APP_DATABASE:postgres}
 spring:
   application:
     name: Product-APi

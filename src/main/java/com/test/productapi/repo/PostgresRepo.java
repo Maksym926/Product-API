@@ -38,6 +38,15 @@ public class PostgresRepo implements ProductRepo{
     }
 
     @Override
+    public boolean findProductByProductName(String name) {
+        int count = jdbc.sql("SELECT COUNT(*) FROM products WHERE name = :name")
+                .param("name", name)
+                .query(Integer.class)
+                .single();
+        return count > 0;
+    }
+
+    @Override
     public void createProduct(Product product) {
         String id = jdbc.sql("INSERT INTO products (name, description, brand, category, price, product_available, stock_quantity)" +
                         " VALUES (:name, :description, :brand, :category, :price, :product_available, :stock_quantity)" +

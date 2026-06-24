@@ -1,5 +1,6 @@
 package com.test.productapi;
 
+import com.test.productapi.exception.custom.ExistingProductException;
 import com.test.productapi.model.Product;
 import com.test.productapi.model.dto.PageResponse;
 import com.test.productapi.model.dto.ProductRequest;
@@ -31,8 +32,13 @@ public class ProductService {
     }
 
     public ProductResponse createProduct(ProductRequest productRequest) {
-        Product product = new Product(
 
+        if(productRepo.findProductByProductName(productRequest.name())){
+
+            throw new ExistingProductException("The product with name: " + productRequest.name() + " already exists");
+        }
+
+        Product product = new Product(
                 productRequest.name(),
                 productRequest.description(),
                 productRequest.brand(),
