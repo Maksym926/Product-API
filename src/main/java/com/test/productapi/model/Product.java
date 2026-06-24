@@ -1,17 +1,16 @@
 package com.test.productapi.model;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
-
-@Entity
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@JsonPropertyOrder({"id", "name", "description", "brand", "category", "price", "productAvailable", "stockQuantity"})
+@Document(collection = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private String id;
 
-    private String productName;
+    private String name;
 
-    private String productDescription;
+    private String description;
 
     private String brand;
 
@@ -23,9 +22,9 @@ public class Product {
 
     private Long stockQuantity;
 
-    public Product(String productName, String productDescription, String brand, String category, Long price, Boolean productAvailable, Long stockQuantity) {
-        this.productName = productName;
-        this.productDescription = productDescription;
+    public Product(String name, String description, String brand, String category, Long price, Boolean productAvailable, Long stockQuantity) {
+        this.name = name;
+        this.description = description;
         this.brand = brand;
         this.category = category;
         this.price = price;
@@ -34,12 +33,12 @@ public class Product {
     }
 
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public void setBrand(String brand) {
@@ -62,16 +61,20 @@ public class Product {
         this.stockQuantity = stockQuantity;
     }
 
-    public Long getProductId() {
-        return productId;
+    public String getId() {
+        return id;
     }
 
-    public String getProductName() {
-        return productName;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getProductDescription() {
-        return productDescription;
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public String getBrand() {

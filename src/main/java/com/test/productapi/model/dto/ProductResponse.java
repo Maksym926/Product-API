@@ -3,6 +3,7 @@ package com.test.productapi.model.dto;
 import com.test.productapi.model.Product;
 
 public record ProductResponse(
+        String id,
         String name,
         Long price,
         String category,
@@ -11,7 +12,8 @@ public record ProductResponse(
 ) {
     public static ProductResponse from(Product product){
         return  new ProductResponse(
-                product.getProductName(),
+                product.getId(),
+                product.getName(),
                 product.getPrice(),
                 product.getCategory(),
                 product.getProductAvailable(),
