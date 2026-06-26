@@ -1,0 +1,1 @@
+Developed a product management API with five endpoints: get all products (paginated, 20 per page by default), get by ID, create, full and partial update, and delete. Implemented a ProductRepo interface with separate PostgreSQL and MongoDB implementations, allowing database switching via a environment variable 
