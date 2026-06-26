@@ -1,1 +1,3 @@
 rootProject.name = 'Product-APi'
+include 'core'
+include 'app'

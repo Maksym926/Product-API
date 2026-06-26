@@ -1,0 +1,18 @@
+app:
+  database: ${APP_DATABASE:mongodb}
+spring:
+  application:
+    name: Product-APi
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/productsDB}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:admin}
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/productsDB}
+server:
+  port: ${SERVER_PORT:8080}
