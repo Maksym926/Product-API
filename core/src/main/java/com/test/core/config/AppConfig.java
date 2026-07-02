@@ -1,4 +1,4 @@
-package com.test.app.config;
+package com.test.core.config;
 
 import com.test.core.repo.ProductRepo;
 import com.test.core.service.ProductService;
