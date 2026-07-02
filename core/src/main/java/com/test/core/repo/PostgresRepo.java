@@ -2,7 +2,7 @@ package com.test.core.repo;
 
 import com.test.core.model.Product;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@ConditionalOnProperty(name = "app.database", havingValue = "postgres") // creates the bean only if the property is postgres
+//@ConditionalOnProperty(name = "app.database", havingValue = "mongodb") // creates the bean only if the property is mongodb
+@Profile("postgres")
 public class PostgresRepo implements ProductRepo{
 
     private final JdbcClient jdbc;

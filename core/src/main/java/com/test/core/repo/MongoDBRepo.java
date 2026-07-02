@@ -4,7 +4,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.test.core.model.Product;
 import com.test.core.model.ProductDocument;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@ConditionalOnProperty(name = "app.database", havingValue = "mongodb") // creates the bean only if the property is mongodb
+@Profile("mongo")
+//@ConditionalOnProperty(name = "app.database", havingValue = "postgres") // creates the bean only if the property is postgres
 public class MongoDBRepo implements ProductRepo{
     private final MongoTemplate mongo;
 

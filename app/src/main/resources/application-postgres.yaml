@@ -1,0 +1,13 @@
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.mongodb.autoconfigure.MongoAutoConfiguration
+      - org.springframework.boot.data.mongodb.autoconfigure.DataMongoAutoConfiguration
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/productsDB}
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:admin}
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
