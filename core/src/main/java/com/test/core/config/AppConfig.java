@@ -1,6 +1,8 @@
 package com.test.core.config;
 
 import com.test.core.repo.ProductRepo;
+import com.test.core.service.ProductFileExportService;
+import com.test.core.service.ProductFileExportServiceImpl;
 import com.test.core.service.ProductService;
 import com.test.core.service.ProductServiceI;
 import org.springframework.context.annotation.Bean;
@@ -12,5 +14,10 @@ public class AppConfig {
     public ProductServiceI productService(ProductRepo productRepo) {
         return new ProductService(productRepo);
     }
+    @Bean
+    public ProductFileExportService productFileExportService(ProductRepo productRepo) {
+        return new ProductFileExportServiceImpl(productRepo);
+    }
+
 
 }

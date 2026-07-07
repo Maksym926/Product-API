@@ -12,3 +12,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
     testImplementation 'org.springframework.boot:spring-boot-starter-mongodb-test'
 }
+
+tasks.named('bootRun') {
+    workingDir = rootProject.projectDir
+}
+
