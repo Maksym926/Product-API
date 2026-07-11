@@ -1,5 +1,6 @@
 package com.test.core.service;
 
+import com.maksym.csv.CSVWriter;
 import com.test.core.exception.custom.ExistingProductException;
 import com.test.core.exception.custom.ItemNotFoundException;
 import com.test.core.model.Product;
@@ -8,6 +9,8 @@ import com.test.core.model.dto.ProductRequest;
 import com.test.core.model.dto.ProductResponse;
 import com.test.core.repo.ProductRepo;
 
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.List;
 
 
@@ -16,8 +19,10 @@ public class ProductService implements ProductServiceI {
 
 
     private final ProductRepo productRepo;
-    public ProductService(ProductRepo productRepo) {
+    private final CSVWriter csvWriter;
+    public ProductService(ProductRepo productRepo, CSVWriter csvWriter) {
         this.productRepo = productRepo;
+        this.csvWriter = csvWriter;
     }
 
 
@@ -95,6 +100,32 @@ public class ProductService implements ProductServiceI {
             throw new ItemNotFoundException(productId);
         }
 
+    }
+    @Override
+    public String exportProducts() {
+        var products = productRepo.findAllProducts(Integer.MAX_VALUE, 0);
+        StringWriter stringWriter = new StringWriter();
+        try {
+
+            csvWriter.write(
+                    products.stream(),
+                    p -> new String[]{
+                            p.getId(),
+                            p.getName(),
+                            p.getDescription(),
+                            p.getBrand(),
+                            p.getCategory(),
+                            String.valueOf(p.getPrice()),
+                            String.valueOf(p.getProductAvailable()),
+                            String.valueOf(p.getStockQuantity())
+                    },
+                    false,
+                    stringWriter
+            );
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to export products to CSV", e);
+        }
+        return stringWriter.toString();
     }
 
 }

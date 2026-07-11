@@ -12,4 +12,5 @@ public interface ProductServiceI {
     ProductResponse updateProductPartially(String productId, ProductRequest updates);
     ProductResponse updateProductEntirely(String productId, ProductRequest productRequest);
     void deleteProduct(String productId);
+    String exportProducts();
 }

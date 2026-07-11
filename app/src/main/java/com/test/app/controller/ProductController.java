@@ -8,10 +8,13 @@ import com.test.core.model.dto.ProductResponse;
 import com.test.core.service.ProductServiceI;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
 
 
 @RestController
@@ -49,5 +52,13 @@ public class ProductController {
     public ResponseEntity<String> deleteProduct(@PathVariable String productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.ok("Product deleted with id: " + productId);
+    }
+    @GetMapping("/export.csv")
+    public ResponseEntity<byte[]> exportProductCSVFile(){
+        byte[] csv = productService.exportProducts().getBytes(StandardCharsets.UTF_8);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"product.csv\"")
+                .contentType(new MediaType("text", "csv", StandardCharsets.UTF_8))
+                .body(csv);
     }
 }
